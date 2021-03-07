@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import './App.scss';
+// apiKey: '19670385-c29ff9f36201f4e7ced09e1e2'
+// baseUrl: 'https://pixabay.com/api/'
 
 class App extends Component {
   state = {};
