@@ -15,6 +15,7 @@ export default class App extends Component {
     searchQuery: '',
     isLoading: false,
     error: null,
+    loadMore: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -39,6 +40,17 @@ export default class App extends Component {
 
     imagesApi(searchQuery, currentPage)
       .then(data => {
+        if (data.length === 0) {
+          alert(':( No results were found for your request, please try again');
+
+          return;
+        }
+
+        if (data.length < 12) {
+          this.setState({ loadMore: false });
+          return;
+        }
+
         this.setState(prevState => ({
           images: [...prevState.images, ...data],
           currentPage: prevState.currentPage + 1,
@@ -54,8 +66,8 @@ export default class App extends Component {
   };
 
   render() {
-    const { images, isLoading, hasError } = this.state;
-    const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading;
+    const { images, isLoading, hasError, loadMore } = this.state;
+    const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading && loadMore;
 
     return (
       <Section>
