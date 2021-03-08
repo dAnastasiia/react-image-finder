@@ -15,7 +15,6 @@ export default class App extends Component {
     searchQuery: '',
     isLoading: false,
     error: null,
-    loadMore: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -46,11 +45,6 @@ export default class App extends Component {
           return;
         }
 
-        if (data.length < 12) {
-          this.setState({ loadMore: false });
-          return;
-        }
-
         this.setState(prevState => ({
           images: [...prevState.images, ...data],
           currentPage: prevState.currentPage + 1,
@@ -66,8 +60,8 @@ export default class App extends Component {
   };
 
   render() {
-    const { images, isLoading, hasError, loadMore } = this.state;
-    const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading && loadMore;
+    const { images, isLoading, hasError } = this.state;
+    const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading;
 
     return (
       <Section>
