@@ -5,7 +5,6 @@ import Searchbar from '../Searchbar';
 import ImageGallery from '../ImageGallery';
 import Button from '../Button';
 import Loader from 'react-loader-spinner';
-import Modal from '../Modal';
 
 import imagesApi from '../../services/images-api';
 
@@ -14,7 +13,6 @@ export default class App extends Component {
     images: [],
     currentPage: 1,
     searchQuery: '',
-    showModal: false,
     isLoading: false,
     error: null,
   };
@@ -24,12 +22,6 @@ export default class App extends Component {
       this.fetchImages();
     }
   }
-
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
 
   onChangeQuery = query => {
     this.setState({
@@ -62,7 +54,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { images, showModal, isLoading, hasError } = this.state;
+    const { images, isLoading, hasError } = this.state;
     const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading;
 
     return (
@@ -83,8 +75,6 @@ export default class App extends Component {
             timeout={3000}
           />
         )}
-
-        {showModal && <Modal onClose={this.toggleModal} />}
       </Section>
     );
   }
